@@ -2,7 +2,11 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(
+    title = "Api do unipao",
+    description = "Essa API serve para a previsão de preço de uma ação na bolsa",
+    docs_url='/docs' # Habilitar o swagger
+)
 
 class InfoPrevisao(BaseModel):
     empresa : str
@@ -13,6 +17,7 @@ class InfoPrevisao(BaseModel):
 async def principal():
     return {"status" : True,
             "mensagem": "Serviço rodando"}
+
 
 @app.get("/previsoes")
 def previsoes(infoPrevisao : InfoPrevisao):
